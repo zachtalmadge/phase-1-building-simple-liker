@@ -4,8 +4,25 @@ const FULL_HEART = '♥'
 
 // Your JavaScript code goes here!
 
+// hide modal when page loads
+let modal = document.querySelector('#modal')
+modal.classList.add('hidden')
 
+// query all heart icons in the DOM
+let heartIcons = document.querySelectorAll('.like-glyph')
 
+// attatch an event listner for each heart icon node
+heartIcons.forEach(heart => {
+  heart.addEventListener('click', () => {
+    mimicServerCall()
+    .then(() => heart.classList.toggle('activated-heart'))
+    .catch(() => {
+      modal.classList.remove('hidden')
+      // remove modal from view after 3 seconds
+      setTimeout(() => modal.classList.add('hidden'), 3000)
+    })
+  })
+})
 
 //------------------------------------------------------------------------------
 // Don't change the code below: this function mocks the server response
